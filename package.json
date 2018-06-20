@@ -1,6 +1,6 @@
 {
   "name": "unseen-data",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Convert data to an unseen zero-width binary string",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
