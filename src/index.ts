@@ -2,12 +2,12 @@ import { b4decode, b4encode } from 'base4'
 import * as CircularJSON from 'circular-json'
 import * as pako from 'pako'
 
-import { Charset, IUnseen } from './types'
+export type Charset = [string, string, string, string]
+export const defaultCharset: Charset = ['\u200B', '\u200C', '\u200D', '\uFEFF']
 
-const defaultCharset: Charset = ['\u200B', '\u200C', '\u200D', '\uFEFF']
-
-class Result extends String {
-  compressed: boolean
+interface IUnseen {
+  compression?: boolean
+  charset?: Charset
 }
 
 class Unseen {
@@ -33,7 +33,7 @@ class Unseen {
     const shouldCompress = deflated.length < serialized.length
     const raw = `${+shouldCompress}${shouldCompress ? deflated : serialized}`
 
-    const output = new String(this.b4encode(raw)) as Result
+    const output = new String(this.b4encode(raw)) as String & { compressed: boolean }
     output.compressed = shouldCompress
 
     return output
